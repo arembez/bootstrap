@@ -23,7 +23,7 @@ provider "aws" {
 data "yandex_client_config" "client" {}
 
 module "s3" {
-  depends_on = [ yandex_kms_symmetric_key.key, yandex_iam_service_account_static_access_key.sa-static-key ]
+  depends_on = [ yandex_resourcemanager_folder_iam_member.sa-editor-ydb, yandex_resourcemanager_folder_iam_member.sa-editor-kms ]
   source = "github.com/terraform-yc-modules/terraform-yc-s3.git?ref=e4017d77de83fe105604fa7b012bc809a77c2fa2"
   bucket_name = var.project_name
 
