@@ -26,7 +26,7 @@ resource "local_file" "backend_tf" {
   filename = "${path.root}/backend.tf"
   file_permission = "0644"
   content = templatefile("${path.module}/backend.tftpl", {
-     bucket_id = module.s3.bucket_name
+     bucket_id = var.project_name
      key = "terraform.tfstate",
      dynamodb_endpoint = yandex_ydb_database_serverless.database.document_api_endpoint,
      dynamodb_table = aws_dynamodb_table.lock_table.id

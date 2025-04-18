@@ -22,13 +22,9 @@ provider "aws" {
 
 data "yandex_client_config" "client" {}
 
-locals {
-  bucket_name = var.project_name
-}
-
 module "s3" {
   source = "github.com/terraform-yc-modules/terraform-yc-s3.git?ref=e4017d77de83fe105604fa7b012bc809a77c2fa2"
-  bucket_name = local.bucket_name
+  bucket_name = var.project_name
 
   existing_service_account = {
     id = yandex_iam_service_account.sa.id
