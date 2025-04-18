@@ -1,7 +1,7 @@
 resource "terraform_data" "load_environment" {
   provisioner "local-exec" {
     interpreter = ["/bin/bash", "-c"]
-    command = "source .env"
+    command = "source ${path.module}/.env"
   }
 }
 
