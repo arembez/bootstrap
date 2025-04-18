@@ -1,5 +1,5 @@
 resource "local_file" "key" {
-  filename = "../.key.json"
+  filename = "${path.root}/.key.json"
   file_permission = "0600"
   content = <<EOH
   {
@@ -14,7 +14,7 @@ resource "local_file" "key" {
 }
 
 resource "local_file" "env" {
-  filename = "../.env"
+  filename = "${path.root}/.env"
   file_permission = "0600"
   content = <<EOH
     export AWS_ACCESS_KEY_ID="${yandex_iam_service_account_static_access_key.sa-static-key.access_key}"
@@ -23,9 +23,9 @@ resource "local_file" "env" {
 }
 
 resource "local_file" "backend_tf" {
-  filename = "../backend.tf"
+  filename = "${path.root}/backend.tf"
   file_permission = "0644"
-  content = templatefile("backend.tftpl", {
+  content = templatefile("${path.module}/backend.tftpl", {
      bucket_id = module.s3.bucket_name
      key = "terraform.tfstate",
      dynamodb_endpoint = yandex_ydb_database_serverless.database.document_api_endpoint,
